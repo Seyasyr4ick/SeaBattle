@@ -1,5 +1,10 @@
 import copy
 import random
+import os, platform
+
+def clear_console():
+    os_platform = platform.system()
+    os.system('cls') if os_platform == "Windows" else 'clear'
 
 while True:
     name = input('Please, enter your name: ')
@@ -94,6 +99,11 @@ while True:
 
             if field[index_to_hit_row][index_to_hit_col] == 'X':
                 print('You have already hit this coordinate, choose another one.')
+                print('   A  B  C  D  E  F  G')
+                for row_count, row in enumerate(display_field):
+                    print(f"{row_count + 1}  " + "  ".join(row))
+                clear_console()
+
                 continue
 
             checking_list = []
@@ -107,6 +117,7 @@ while True:
                             checking_list.append(field[index_to_hit_row + k][index_to_hit_col + r])
                 if not '□' in checking_list:
                     destroyed_ships += 1
+                    clear_console()
                     print('   A  B  C  D  E  F  G')
                     for row_count, row in enumerate(final_field):
                         print(f"{row_count + 1}  " + "  ".join(row))
@@ -116,8 +127,10 @@ while True:
                         print(f'The game is over!\n'
                               f'The number of your moves: {count_of_moves}')
                         break
+
                     continue
                 else:
+                    clear_console()
                     print('   A  B  C  D  E  F  G')
                     for row_count, row in enumerate(display_field):
                         print(f"{row_count + 1}  " + "  ".join(row))
@@ -127,6 +140,7 @@ while True:
                 field[index_to_hit_row][index_to_hit_col] = 'X'
                 display_field[index_to_hit_row][index_to_hit_col] = 'X'
                 final_field[index_to_hit_row][index_to_hit_col] = 'X'
+                clear_console()
                 print('   A  B  C  D  E  F  G')
                 for row_count, row in enumerate(display_field):
                     print(f"{row_count + 1}  " + "  ".join(row))
@@ -144,6 +158,7 @@ while True:
         if answer == 1:
             break
         if answer == 2:
+            clear_console()
             for key, move in sorted(rating.items(), key=lambda item: item[1]):
                 print(f"rating of players:\n"
                       f"name : number of moves\n"
